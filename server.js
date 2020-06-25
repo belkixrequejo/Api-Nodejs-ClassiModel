@@ -15,7 +15,7 @@ app.post('/ordenar',   (req, res) => {
 });
 
 //ya modificado
-app.post('/orders', (request, response) => {
+app.post('/order', (request, response) => {
     dbConn.query('INSERT INTO orders SET ?', request.body, (error, result) => {
         if (error) throw error;
 
