@@ -14,8 +14,8 @@ app.use(bodyParser.text({ type: 'text/html' }))
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
-app.post('/ordenar', urlencodedParser, function (req, res) {
-    dbConn.query('CALL ordenar_producto('+req.body+')', function(err,rows) {
+app.post('/ordenar',   (req, res) => {
+    dbConn.query('CALL ordenar_producto ?', request.body,function(err,rows) {
             if(err) {
                res.send(err)
             } else {
@@ -24,7 +24,6 @@ app.post('/ordenar', urlencodedParser, function (req, res) {
             }
         })
 });
-
 
 
 app.get("/1/cliente",
