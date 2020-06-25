@@ -6,25 +6,22 @@ var dbConn  = require('./db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-// parse some custom thing into a Buffer
-app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }))
-
-// parse an HTML body into a string
-app.use(bodyParser.text({ type: 'text/html' }))
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
-
 
 app.post('/ordenar',   (req, res) => {
-    dbConn.query('CALL ordenar_producto ?', request.body,function(err,rows) {
-            if(err) {
-               res.send(err)
-            } else {
-                res.send(rows)
-                res.send('Datos guardados exitosamente, ' + req.body.username)
-            }
-        })
+    dbConn.query('CALL ordenar_producto ?', request.body,(error, result) => {
+        if (error) throw error;
+        response.status(201).send(`Orden añadida con ID: ${result.insertId}`);
+    });
 });
 
+
+app.post('/orders', (request, response) => {
+    pool.query('INSERT INTO orders SET ?', request.body, (error, result) => {
+        if (error) throw error;
+
+        response.status(201).send(`Orden added with ID: ${result.insertId}`);
+    });
+});
 
 app.get("/1/cliente",
     (req, res) => {
