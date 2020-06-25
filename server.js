@@ -21,6 +21,7 @@ app.post('/order', (request, response) => {
 
         response.status(201).send(`Orden added with ID: ${result.insertId}`);
     });
+    response.status(201).send(`Los datos query ${ dbConn.query}`);
 });
 
 app.get("/1/cliente",
